@@ -10,7 +10,7 @@ const TYPES = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charse
 
 http.createServer((req, res) => {
   let rel = decodeURIComponent(req.url.split('?')[0]);
-  if (rel === '/') rel = '/vialuxury-fietsvakanties.html';
+  if (rel === '/') rel = '/index.html';
   const file = path.join(ROOT, path.normalize(rel).replace(/^(\.\.[/\\])+/, ''));
   if (!file.startsWith(ROOT)) { res.writeHead(403).end('Forbidden'); return; }
   fs.readFile(file, (err, data) => {
