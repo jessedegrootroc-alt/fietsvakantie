@@ -260,7 +260,7 @@ body{background:var(--shell-bg);color:var(--shell-fg);font-family:BasisGrotesque
   border-radius:6px;font-family:BasisGrotesque,sans-serif;font-weight:600;font-size:14px;line-height:22.4px;transition:background 150ms ease}
 .vl .vx-v6:hover .vx6__cta{background:#F56800}
 /* routelijn op de foto: wit, met een gat in de stippellijn voor de fiets */
-.vl .vx-v6 .vx6__route{--axis:25px;margin:12px 0;padding:0;border:0;background:none}
+.vl .vx-v6 .vx6__route{--axis:25px;margin:0 0 12px;padding:0;border:0;background:none}
 .vl .vx-v6 .vx6__route .vx-stop b{color:#fff;font-size:12.5px;line-height:14px;margin-bottom:6px}
 .vl .vx-v6 .vx6__route .vx-stop span{color:rgba(255,255,255,.75);font-size:11px;line-height:13px;margin-top:6px}
 .vl .vx-v6 .vx6__route .vx-stop i{background:#fff;border-color:transparent;box-shadow:none}
@@ -560,11 +560,9 @@ function applyV6(a,d){
   const oud=tekst(a.querySelector('h4.line-through'));
   const nu=tekst(a.querySelector('.map-price'));
   const nachten=tekst(a.querySelector('.pl-1.font-sans.font-bold')).replace(/\s*inclusief:?\s*$/i,'');
-  const nieuw=!!a.querySelector('.absolute.px-2.top-4 img');
 
   let soort='', lijn='';
   if(d){
-    soort=d.base?'Fietsvakantie met dagroutes':'Fietsvakantie met '+d.stops.length+' hotels';
     lijn='<div class="vx-strip vx6__route" aria-label="Reisopbouw"><ol class="vx-route__line">'+lineHTML(d,true,false)+'</ol></div>';
     if(d.base&&plaats){const eerste=plaats.split(',')[0];
       lijn=lijn.replace(/(<li class="vx-stop"><i><\/i><b>)[^<]*(<\/b>)/,'$1'+esc(eerste)+'$2');}
@@ -582,12 +580,11 @@ function applyV6(a,d){
    +'<div class="vx6__scrim"></div>'
    +'<div class="vx6__top">'
      +(korting?'<span class="vx6__korting">'+esc(korting)+'</span>':'')
-     +(nieuw?'<span class="vx6__nieuw">Nieuw</span>':'')
    +'</div>'
    +'<div class="vx6__hart"></div>'
    +(a.closest('.vx-compare')?'<span class="vx6__tag">Gewoon arrangement</span>':'')
    +'<div class="vx6__body">'
-     +'<div class="vx6__soort">'+soort+'</div>'
+     +(soort?'<div class="vx6__soort">'+soort+'</div>':'')
      +lijn
      +'<h3 class="vx6__titel">'+esc(titel)+'</h3>'
      +(nachten?'<div class="vx6__nachten">'+esc(nachten)+'</div>':'')
