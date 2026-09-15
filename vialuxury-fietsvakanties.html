@@ -248,10 +248,11 @@ body{background:var(--shell-bg);color:var(--shell-fg);font-family:BasisGrotesque
 .vl .vx-v6 .vx6__sterren{color:#FB862D;margin-left:6px}
 .vl .vx-v6 .vx6__plaats{font-size:13px;line-height:18px;color:rgba(255,255,255,.75);margin-top:2px}
 .vl .vx-v6 .vx6__titel{font-family:Recoleta,serif;font-weight:700;font-size:18px;line-height:23.4px;color:#fff;margin:0;
-  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
 .vl .vx-v6 .vx6__nachten{font-size:13px;line-height:18px;color:rgba(255,255,255,.75);margin-top:4px}
 .vl .vx-v6 .vx6__prijs{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
 .vl .vx-v6 .vx6__bedrag{display:flex;align-items:baseline;gap:8px}
+.vl .vx-v6 .vx6__vanaf{font-size:13px;line-height:16px;color:rgba(255,255,255,.75)}
 .vl .vx-v6 .vx6__oud{font-family:Recoleta,serif;font-size:14px;line-height:16px;color:rgba(255,255,255,.65);text-decoration:line-through}
 .vl .vx-v6 .vx6__nu{font-family:Recoleta,serif;font-weight:700;font-size:22px;line-height:22px;color:#fff}
 .vl .vx-v6 .vx6__cta{display:inline-flex;align-items:center;height:42px;padding:10px 24px;background:#FB862C;color:#fff;
@@ -376,6 +377,7 @@ const VX={
  '4-Daagse fietsvakantie van Veluwse bossen tot de Rijn':ONE('Hotel Wander',3,3,'Veluwe, Nederland','Je slaapt 3 nachten in Hotel Wander ★★★★ in Wageningen en fietst elke dag een andere route door de Veluwse bossen en langs de Rijn.',['Dagelijks ontbijtbuffet','3-Gangendiner (1e en 3e avond)','Late check out'],4),
  '5-Daagse fietsvakantie door Veluwse bossen, langs de Rijn & door het Binnenveld':ONE('Hotel Wander',4,4,'Veluwe, Nederland','Je slaapt 4 nachten in Hotel Wander ★★★★ in Wageningen en fietst elke dag een andere route: bossen, Rijn en Binnenveld.',['Dagelijks ontbijtbuffet','3-Gangendiner (1e en 3e avond)','Late check out'],5),
  '4-Daagse fietsvakantie Twente & Salland':{type:'Rondreis langs 3 hotels',badge:'Rondreis langs 3 hotels',base:false,stops:[['Delden','1 nacht'],['Raalte','1 nacht'],['Markelo','1 nacht']],legs:['ca. 34 km','ca. 31 km'],region:'Twente & Salland, Nederland',meta:'Dag 4 fiets je terug naar Delden',short:'3 etappes van hotel naar hotel',stay:'Je slaapt in Delden, Raalte en Markelo, steeds 1 nacht. Elke dag fiets je naar het volgende hotel.',fiets:['Fietsroute van hotel naar hotel'],verblijf:['3 x Overnachting in Delden, Raalte en Markelo','Dagelijks ontbijtbuffet','Dagelijks 3-Gangendiner','Gratis parkeren'],stats:[['4','dagen'],['3','etappes'],['3','hotels']],nights:3},
+ '7-daagse fietsvakantie Twente & Salland: Delden – Raalte – Markelo incl. dagelijks 3-gangendiner':{type:'Rondreis langs 3 hotels',badge:'Rondreis langs 3 hotels',base:false,stops:[['Delden','2 nachten'],['Raalte','2 nachten'],['Markelo','2 nachten']],legs:['ca. 34 km','ca. 31 km'],region:'Twente & Salland, Nederland',meta:'Dag 7 fiets je terug naar Delden',short:'3 etappes van hotel naar hotel',stay:'Je slaapt 2 nachten per hotel in Delden, Raalte en Markelo. Je bagage gaat vooruit naar het volgende hotel.',fiets:['Fietsroutes op je telefoon','Dagelijkse bagagetransfer'],verblijf:['6 x Overnachting in Delden, Raalte en Markelo','Dagelijks 3-gangendiner'],stats:[['7','dagen'],['3','etappes'],['3','hotels']],nights:6},
  '7-Daagse fietsvakantie Twente & Salland':{type:'Rondreis langs 3 hotels',badge:'Rondreis langs 3 hotels',base:false,stops:[['Delden','2 nachten'],['Raalte','2 nachten'],['Markelo','2 nachten']],legs:['ca. 34 km','ca. 31 km'],region:'Twente & Salland, Nederland',meta:'Met rustdagen, dag 7 terug in Delden',short:'3 etappes van hotel naar hotel',stay:'Je slaapt 2 nachten per hotel in Delden, Raalte en Markelo, met een dagroute op de tussenliggende dagen.',fiets:['Fietsroute van hotel naar hotel'],verblijf:['6 x Overnachting in Delden, Raalte en Markelo','Dagelijks ontbijtbuffet','Dagelijks 3-Gangendiner','Gratis parkeren'],stats:[['7','dagen'],['3','etappes'],['3','hotels']],nights:6},
  '7-Daagse fietsvakantie met verblijf in 3 hotels':{type:'Rondreis langs 3 hotels',badge:'3 hotels, bagage vooruit',base:false,stops:[['Zuidlaren','2 nachten'],['Hotel 2','2 nachten'],['Hotel 3','2 nachten']],legs:['ca. 40 km','ca. 38 km'],region:'Drenthe, Nederland',meta:'Je bagage wordt vooruitgebracht',short:'3 etappes, bagage vooruit',stay:'Je slaapt 2 nachten per hotel in Drenthe. Je bagage reist vooruit, jij fietst met een dagrugzak.',fiets:['Fietsroute van hotel naar hotel','Bagagetransport'],verblijf:['6 x Overnachting in 3 verschillende hotels','Dagelijks ontbijtbuffet','Gratis parkeren'],stats:[['7','dagen'],['3','etappes'],['3','hotels']],nights:6},
  '5-Daagse fietsvakantie Twente & Salland':{type:'Rondreis langs 2 hotels',badge:'Rondreis langs 2 hotels',base:false,stops:[['Delden','2 nachten'],['Raalte','2 nachten']],legs:['ca. 34 km'],region:'Twente & Salland, Nederland',meta:'Dag 5 fiets je terug naar Delden',short:'2 etappes, dagroute per hotel',stay:'Je slaapt 2 nachten in Delden en 2 nachten in Raalte, met een dagroute vanuit elk hotel.',fiets:['Fietsroute van hotel naar hotel'],verblijf:['4 x Overnachting in Delden en Raalte','Dagelijks ontbijtbuffet','Dagelijks 3-Gangendiner','Gratis parkeren'],stats:[['5','dagen'],['2','etappes'],['2','hotels']],nights:4},
@@ -413,6 +415,7 @@ function prepare(r){
   const grid=r.querySelector('#vxGrid'); r._deals=[]; r._promo=null;
   [...grid.children].forEach((el,i)=>{
     const h3=el.querySelector('h3.font-serif'); if(!h3){r._promo=el;return;}
+    if(i===0)herschrijfKaart1(el);
     const txt=s=>s?s.textContent.replace(/\s+/g,' ').trim():'';
     const nights=parseInt((txt(el.querySelector('.pl-1.font-sans.font-bold'))||'').match(/(\d+)\s+nacht/)?.[1]||'0',10);
     const disc=parseInt((txt(el.querySelector('[style*="clip-path"]'))||'0').replace(/[^\d]/g,''),10);
@@ -519,6 +522,24 @@ function compareCard(r){
   if(media)media.insertAdjacentHTML('beforeend','<span class="vx-compare__tag">Gewoon arrangement</span>');
   return wrap;
 }
+function herschrijfKaart1(el){
+  const KAART1={hotel:'Fietsvakantie',plaats:'Delden \u00b7 Raalte \u00b7 Markelo',
+    titel:'7-daagse fietsvakantie Twente & Salland: Delden – Raalte – Markelo incl. dagelijks 3-gangendiner',
+    nachten:'6 nachten voor 2 personen inclusief:',
+    incl:['Dagelijks 3-gangendiner','Dagelijkse bagagetransfer','Fietsroutes op je telefoon'],
+    korting:'-35%',was:'1635',nu:'1059'};
+  const zet=(sel,tekst)=>{const x=el.querySelector(sel); if(x)x.textContent=tekst;};
+  const h3=el.querySelector('h3.font-serif'); if(h3)h3.innerHTML='<span>'+KAART1.hotel+'</span>';
+  const info=el.querySelector('.font-sans.font-normal.text-sm');
+  if(info){const loc=info.children[0]&&info.children[0].querySelector('span');
+    if(loc){[...loc.childNodes].forEach(n=>{if(n.nodeType===3)n.remove()}); loc.appendChild(document.createTextNode(' '+KAART1.plaats));}
+    if(info.children[1])info.children[1].textContent=KAART1.titel;}
+  zet('.pl-1.font-sans.font-bold',KAART1.nachten);
+  el.querySelectorAll('li .text-\\[13px\\]').forEach((x,i)=>{x.textContent=KAART1.incl[i]||''; if(!KAART1.incl[i])x.closest('li').remove();});
+  zet('[style*="clip-path"]',KAART1.korting);
+  zet('h4.line-through',KAART1.was);
+  const prijs=el.querySelector('.map-price'); if(prijs&&prijs.firstChild)prijs.firstChild.textContent=KAART1.nu+' ';
+}
 function applyV6(a,d){
   if(!a)return;
   a.classList.add('vx-v6');
@@ -564,7 +585,7 @@ function applyV6(a,d){
      +'<h3 class="vx6__titel">'+esc(titel)+'</h3>'
      +(nachten?'<div class="vx6__nachten">'+esc(nachten)+'</div>':'')
      +'<div class="vx6__prijs">'
-       +'<div class="vx6__bedrag">'
+       +'<div class="vx6__bedrag"><span class="vx6__vanaf">Vanaf</span>'
          +(oud?'<span class="vx6__oud">'+esc(oud)+'</span>':'')
          +'<span class="vx6__nu">'+esc(nu)+'</span>'
        +'</div>'
