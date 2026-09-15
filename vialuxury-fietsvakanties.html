@@ -280,6 +280,32 @@ body{background:var(--shell-bg);color:var(--shell-fg);font-family:BasisGrotesque
   padding:0 12px;border-radius:6px;background:rgba(20,20,20,.72);color:#fff;font-family:BasisGrotesque,sans-serif;
   font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
 @container page (max-width: 767px){.vl .vx-v6.map-offer{height:520px}}
+/* derde positie: zelfde kaart, tekst in de witte opmaak van de styleguide */
+.vl .vx-v6.vx-wit.map-offer{height:auto;min-height:0;display:flex;flex-direction:column;background:#fff;
+  border:1px solid #F0F0F0;border-radius:6px;overflow:hidden}
+.vl .vx-wit .vw__media{position:relative;height:240px;flex:none;overflow:hidden;background:#141414}
+.vl .vx-wit .vw__media .vx6__korting{position:absolute;top:16px;left:16px;z-index:3}
+.vl .vx-wit .vw__hart{position:absolute;top:16px;right:16px;z-index:3}
+.vl .vx-wit .vw__hart .map-heart{position:static}
+.vl .vx-wit .vw__hart .map-heart button{background:rgba(255,255,255,.92);color:#141414}
+.vl .vx-wit .vw__body{padding:16px;color:#141414}
+.vl .vx-wit .vw__soort{font-family:Recoleta,serif;font-weight:700;font-size:16px;line-height:20.8px;color:#141414}
+.vl .vx-wit .vw__plaats{display:flex;align-items:center;gap:6px;margin-top:4px;font-size:13px;line-height:18px;color:#555}
+.vl .vx-wit .vw__plaats svg{width:14px;height:14px;flex:none}
+.vl .vx-wit .vw__titel{font-family:Recoleta,serif;font-weight:700;font-size:18px;line-height:23.4px;color:#141414;margin:16px 0 0}
+.vl .vx-wit .vw__label{font-family:Recoleta,serif;font-weight:600;font-size:13px;line-height:20.8px;color:#FB862C;margin-top:16px}
+.vl .vx-wit .vw__incl{list-style:none;margin:8px 0 0;padding:0}
+.vl .vx-wit .vw__incl li{display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:22.4px;margin-bottom:6px}
+.vl .vx-wit .vw__incl li:last-child{margin-bottom:0}
+.vl .vx-wit .vw__incl svg{width:14px;height:14px;margin-top:4px;color:#27C88D;flex:none}
+.vl .vx-wit .vw__personen{font-weight:700;font-size:14px;line-height:22.4px;margin-top:16px}
+.vl .vx-wit .vw__prijs{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
+.vl .vx-wit .vw__bedrag{display:flex;align-items:baseline;gap:8px}
+.vl .vx-wit .vw__vanaf{font-family:Recoleta,serif;font-style:italic;font-size:13px;color:#555}
+.vl .vx-wit .vw__nu{font-family:Recoleta,serif;font-weight:700;font-size:22px;line-height:22px;color:#141414}
+.vl .vx-wit .vw__was{font-family:Recoleta,serif;font-size:14px;color:#D32F2F;text-decoration:line-through}
+.vl .vx-wit .vw__info{align-self:center;color:#999;display:flex}
+.vl .vx-wit .vw__info svg{width:15px;height:15px}
 .vl .vx-compare{outline:2px dashed #888a8a;outline-offset:3px}
 .vl .vx-compare__tag{position:absolute;left:0;top:14px;z-index:31;background:#515454;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px}
 
@@ -604,6 +630,43 @@ function applyV6(a,d){
   if(gat&&hart)gat.appendChild(hart); else if(gat)gat.remove();
   wireVideo(a);
 }
+const PIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+const VINK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg>';
+const INFO='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/></svg>';
+const KAART3={soort:'Fietsvakantie met 3 hotels',plaats:'Delden · Raalte · Markelo',
+  titel:'7-daagse fietsvakantie Twente & Salland: Delden – Raalte – Markelo incl. dagelijks 3-gangendiner',
+  label:'Fietsvakantie',
+  incl:['6 nachten / 3 hotels','Dagelijks 3-gangendiner','Dagelijkse bagagetransfer','Fietsroutes op je telefoon'],
+  personen:'2 personen, 6 nachten',nu:'€1.059',was:'€1.635'};
+function maakWitteKaart(a){
+  if(!a)return;
+  a.classList.remove('vx-blur'); a.classList.add('vx-wit');
+  const foto=a.querySelector('.vx6__foto');
+  const korting=a.querySelector('.vx6__korting');
+  const hart=a.querySelector('.map-heart');
+  const d=KAART3;
+  a.innerHTML=
+    '<div class="vw__media">'+(foto?foto.outerHTML:'')
+     +(korting?'<span class="vx6__korting">'+korting.textContent+'</span>':'')
+     +'<div class="vw__hart"></div>'
+   +'</div>'
+   +'<div class="vw__body">'
+     +'<div class="vw__soort">'+esc(d.soort)+'</div>'
+     +'<div class="vw__plaats">'+PIN+'<span>'+esc(d.plaats)+'</span></div>'
+     +'<h3 class="vw__titel">'+esc(d.titel)+'</h3>'
+     +'<div class="vw__label">'+esc(d.label)+'</div>'
+     +'<ul class="vw__incl">'+d.incl.map(x=>'<li>'+VINK+'<span>'+esc(x)+'</span></li>').join('')+'</ul>'
+     +'<div class="vw__personen">'+esc(d.personen)+'</div>'
+     +'<div class="vw__prijs">'
+       +'<div class="vw__bedrag"><span class="vw__vanaf">Vanaf</span><span class="vw__nu">'+esc(d.nu)+'</span>'
+         +'<span class="vw__was">'+esc(d.was)+'</span><span class="vw__info">'+INFO+'</span></div>'
+       +'<span class="vx6__cta">Bekijk</span>'
+     +'</div>'
+   +'</div>';
+  const gat=a.querySelector('.vw__hart');
+  if(gat&&hart)gat.appendChild(hart); else if(gat)gat.remove();
+  wireVideo(a);
+}
 function wireVideo(a){
   const v=a.querySelector('.vx6__video'); if(!v)return;
   const rust=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -641,7 +704,10 @@ function render(r){
       if(cel){const kopie=cel.cloneNode(true);
         const ka=kopie.querySelector('a.map-offer'); if(ka)ka.classList.add('vx-blur');
         cel.insertAdjacentElement('afterend',kopie);
-        if(ka)wireVideo(ka);}
+        if(ka)wireVideo(ka);
+        const derde=kopie.cloneNode(true);
+        kopie.insertAdjacentElement('afterend',derde);
+        maakWitteKaart(derde.querySelector('a.map-offer'));}
     }}
   r._deals.forEach(d=>{const b=d.el.querySelector('.map-heart button'); if(b)b.setAttribute('aria-pressed',String(state.fav.has(d.key)));});
   const lbl=SORTS.find(s=>s[0]===state.sort)[1];
