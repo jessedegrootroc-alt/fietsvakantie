@@ -279,7 +279,14 @@ body{background:var(--shell-bg);color:var(--shell-fg);font-family:BasisGrotesque
 .vl .vx-v6 .vx6__tag{position:absolute;top:16px;right:62px;z-index:3;display:inline-flex;align-items:center;height:43px;
   padding:0 12px;border-radius:6px;background:rgba(20,20,20,.72);color:#fff;font-family:BasisGrotesque,sans-serif;
   font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
-@container page (max-width: 767px){.vl .vx-v6.map-offer{height:520px}}
+@container page (max-width: 767px){
+  .vl .vx-v6.map-offer{height:560px}
+  .vl .vx-v6 .vx6__body{padding:20px}
+  .vl .vx-v6 .vx6__route{margin:0 0 18px}
+  .vl .vx-v6 .vx6__titel{font-size:19px;line-height:25px}
+  .vl .vx-v6 .vx6__nachten{margin-top:8px}
+  .vl .vx-v6 .vx6__prijs{margin-top:20px}
+}
 /* derde positie: zelfde kaart, tekst in de witte opmaak van de styleguide */
 .vl .vx-v6.vx-wit.map-offer{height:auto;min-height:0;display:flex;flex-direction:column;background:#fff;
   border:1px solid #F0F0F0;border-radius:6px;overflow:hidden}
@@ -309,6 +316,15 @@ body{background:var(--shell-bg);color:var(--shell-fg);font-family:BasisGrotesque
 .vl .vx-wit .vw__was{font-family:Recoleta,serif;font-size:14px;color:#D32F2F;text-decoration:line-through}
 .vl .vx-wit .vw__info{align-self:center;color:#999;display:flex}
 .vl .vx-wit .vw__info svg{width:15px;height:15px}
+@container page (max-width: 767px){
+  .vl .vx-wit .vw__body{padding:20px}
+  .vl .vx-wit .vw__media .vx6__route{padding:0 20px 16px}
+  .vl .vx-wit .vw__label{margin-top:18px}
+  .vl .vx-wit .vw__incl{margin-top:10px}
+  .vl .vx-wit .vw__incl li{margin-bottom:8px}
+  .vl .vx-wit .vw__personen{margin-top:18px}
+  .vl .vx-wit .vw__prijs{margin-top:12px}
+}
 .vl .vx-compare{outline:2px dashed #888a8a;outline-offset:3px}
 .vl .vx-compare__tag{position:absolute;left:0;top:14px;z-index:31;background:#515454;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px}
 
