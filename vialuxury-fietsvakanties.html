@@ -729,9 +729,14 @@ function render(r){
         if(ka)wireVideo(ka);
         const derde=kopie.cloneNode(true);
         kopie.insertAdjacentElement('afterend',derde);
-        maakWitteKaart(derde.querySelector('a.map-offer'));}
+        maakWitteKaart(derde.querySelector('a.map-offer'));
+        // alleen de drie behandelingen naast elkaar, de overige kaarten vervallen
+        [...grid.children].forEach(c=>{if(c!==cel&&c!==kopie&&c!==derde)c.remove();});}
     }}
   r._deals.forEach(d=>{const b=d.el.querySelector('.map-heart button'); if(b)b.setAttribute('aria-pressed',String(state.fav.has(d.key)));});
+  const telling=[...grid.querySelectorAll('a.map-offer')].filter(x=>!x.closest('.vx-compare')).length;
+  const teller=[...r.querySelectorAll('p.font-serif')].find(x=>/^\d+\s+deals?$/.test(x.textContent.replace(/\s+/g,' ').trim()));
+  if(teller)teller.textContent=telling+(telling===1?' deal':' deals');
   const lbl=SORTS.find(s=>s[0]===state.sort)[1];
   const sb=r.querySelector('#vxSortBtn span'); if(sb)sb.textContent='Sorteer op: '+lbl;
   r.querySelectorAll('#vxPop button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.sort===state.sort)));
