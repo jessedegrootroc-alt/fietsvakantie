@@ -284,6 +284,9 @@ body{background:var(--shell-bg);color:var(--shell-fg);font-family:BasisGrotesque
 .vl .vx-v6.vx-wit.map-offer{height:auto;min-height:0;display:flex;flex-direction:column;background:#fff;
   border:1px solid #F0F0F0;border-radius:6px;overflow:hidden}
 .vl .vx-wit .vw__media{position:relative;height:240px;flex:none;overflow:hidden;background:#141414}
+.vl .vx-wit .vw__scrim{position:absolute;inset:auto 0 0 0;height:62%;z-index:1;
+  background:linear-gradient(to top,rgba(0,0,0,.78) 0%,rgba(0,0,0,.5) 45%,rgba(0,0,0,0) 100%)}
+.vl .vx-wit .vw__media .vx6__route{position:absolute;left:0;right:0;bottom:0;z-index:2;margin:0;padding:0 16px 14px}
 .vl .vx-wit .vw__media .vx6__korting{position:absolute;top:16px;left:16px;z-index:3}
 .vl .vx-wit .vw__hart{position:absolute;top:16px;right:16px;z-index:3}
 .vl .vx-wit .vw__hart .map-heart{position:static}
@@ -642,11 +645,13 @@ function maakWitteKaart(a){
   if(!a)return;
   a.classList.remove('vx-blur'); a.classList.add('vx-wit');
   const foto=a.querySelector('.vx6__foto');
+  const route=a.querySelector('.vx6__route');
   const korting=a.querySelector('.vx6__korting');
   const hart=a.querySelector('.map-heart');
   const d=KAART3;
   a.innerHTML=
     '<div class="vw__media">'+(foto?foto.outerHTML:'')
+     +(route?'<div class="vw__scrim"></div>'+route.outerHTML:'')
      +(korting?'<span class="vx6__korting">'+korting.textContent+'</span>':'')
      +'<div class="vw__hart"></div>'
    +'</div>'
