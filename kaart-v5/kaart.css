@@ -1,0 +1,71 @@
+/* Kaart versie 5. Alles wat bovenop de sitestijl komt.
+   --ruimte is de enige witruimtemaat tussen de blokken in de kaart.
+   --axis is de hoogte waarop de stippellijn, de stippen en de fiets liggen. */
+
+/* ---- pagina-container: container queries, de kaart schaalt met zijn kolom ---- */
+.vl{container-type:inline-size;container-name:page;background:#fff;color:#1A1E1E;position:relative;min-height:100px;-webkit-font-smoothing:antialiased}
+.vl a[href="#"]{cursor:pointer}
+
+/* ---- kaart: hover en favorietenhart ---- */
+.vl .map-heart button{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.92);display:grid;place-items:center;cursor:pointer;border:0;color:#1A1E1E;margin:6px}
+.vl .map-heart svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8}
+.vl .map-heart button[aria-pressed="true"] svg{fill:#E01F33;stroke:#E01F33}
+.vl .map-offer{transition:box-shadow .2s}
+.vl .map-offer:hover{box-shadow:0 10px 30px rgba(26,30,30,.10)}
+
+/* ---- iconen ---- */
+.vl .vx-bike,.vl .vx-ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ---- routelijn: stops, etappes en het fietsicoon ---- */
+.vl .vx-route__line{list-style:none;margin:0;padding:0;display:flex;align-items:flex-start}
+.vl .vx-stop{display:flex;flex-direction:column;align-items:center;text-align:center;flex:0 0 auto;max-width:36%;min-width:0}
+.vl .vx-stop i{display:block;width:12px;height:12px;border-radius:50%;background:#1A1E1E;border:2px solid #fff;box-shadow:0 0 0 1.5px #1A1E1E;margin-bottom:6px}
+.vl .vx-stop b{font-size:12px;font-weight:700;line-height:1.2;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 2px}
+.vl .vx-stop span{font-size:11px;color:#515454;line-height:1.2;margin-top:1px}
+.vl .vx-leg{flex:1 1 0;min-width:30px;position:relative;display:flex;flex-direction:column;align-items:center}
+.vl .vx-leg::before{content:"";position:absolute;left:-6px;right:-6px;top:5px;border-top:2px dashed #888a8a}
+.vl .vx-leg__bike{position:relative;background:#fff;padding:0 3px;margin-top:-4px;color:#1A1E1E;display:flex}
+.vl .vx-leg__bike .vx-bike{width:20px;height:20px}
+.vl .vx-leg__km{font-size:11px;color:#515454;white-space:nowrap;margin-top:2px}
+
+/* ---- heen en terug: dagroutes vanuit een hotel ---- */
+.vl .vx-ob{flex:1 1 0;min-width:54px;position:relative;display:flex;flex-direction:column;align-items:center}
+.vl .vx-ob::before{content:"";position:absolute;left:9px;right:9px;top:5px;border-top:2px dashed #888a8a}
+.vl .vx-ob__arrows{position:absolute;left:0;right:0;top:0;height:12px;display:flex;justify-content:space-between;align-items:center;color:#888a8a;pointer-events:none}
+.vl .vx-ob__arrows svg{width:7px;height:11px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.vl .vx-ob__bike{position:relative;margin-top:-4px;background:#fff;padding:0 3px;color:#1A1E1E;display:flex}
+.vl .vx-ob__bike .vx-bike{width:20px;height:20px}
+
+/* ---- routestrip: stippellijn horizontaal en verticaal gecentreerd ---- */
+.vl .vx-strip{--axis:20px;background:#fff}
+.vl .vx-strip .vx-route__line{align-items:stretch;justify-content:center}
+.vl .vx-strip .vx-stop{justify-content:flex-start}
+.vl .vx-strip .vx-stop b{order:1;font-size:12px;line-height:13px;margin-bottom:2px}
+.vl .vx-strip .vx-stop i{order:2;width:10px;height:10px;box-shadow:0 0 0 1.5px #1A1E1E;margin:0}
+.vl .vx-strip .vx-stop span{order:3;font-size:10.5px;line-height:11px;margin-top:2px}
+.vl .vx-strip .vx-leg{flex:1 1 0;min-width:40px}
+.vl .vx-strip .vx-ob{flex:0 0 132px;min-width:132px}
+.vl .vx-strip .vx-leg::before,.vl .vx-strip .vx-ob::before{top:calc(var(--axis) - 1px)}
+.vl .vx-strip .vx-leg__bike,.vl .vx-strip .vx-ob__bike{position:absolute;top:var(--axis);left:50%;transform:translate(-50%,-50%);margin:0;background:#fff;padding:0 5px}
+.vl .vx-strip .vx-leg__bike .vx-bike,.vl .vx-strip .vx-ob__bike .vx-bike{width:22px;height:22px;stroke-width:2}
+.vl .vx-strip .vx-ob__arrows{top:calc(var(--axis) - 6px);height:12px;left:2px;right:2px}
+.vl .vx-strip__meta{display:none}
+
+/* ---- versie 5: vaste witruimte van 16px tussen alle blokken ---- */
+.vl .vx-v5{--ruimte:16px}
+.vl .vx-v5 .map-info{padding-top:var(--ruimte);padding-bottom:var(--ruimte)}
+.vl .vx-v5 .map-info > h3:not(.vx-titel){margin-bottom:6px}
+.vl .vx-v5 h3.vx-titel{line-height:26px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+.vl .vx-v5 .font-sans.font-normal.text-sm{margin-bottom:var(--ruimte)}
+.vl .vx-v5 .vx-strip{--axis:25px;margin:var(--ruimte) -20px var(--ruimte);padding:0 20px var(--ruimte);border-bottom:1px solid #e5e5e5}
+.vl .vx-v5 .vx-strip .vx-stop b{font-size:12.5px;line-height:14px;margin-bottom:6px}
+.vl .vx-v5 .vx-strip .vx-stop span{font-size:11px;line-height:13px;margin-top:6px}
+.vl .vx-v5 .map-info .mb-2.flex.flex-col{margin-bottom:0}
+.vl .vx-v5 .map-info .mb-2 > .mb-2{margin-bottom:var(--ruimte)}
+.vl .vx-v5 .map-info .mb-2 > .flex.flex-col{margin-bottom:var(--ruimte)}
+.vl .vx-v5 .map-info .fa-ul li{margin-bottom:6px}
+.vl .vx-v5 .map-info .fa-ul li:last-child{margin-bottom:0}
+
+/* ---- vergelijkingskaart: gewoon arrangement ---- */
+.vl .vx-compare{outline:2px dashed #888a8a;outline-offset:3px}
+.vl .vx-compare__tag{position:absolute;left:0;top:14px;z-index:31;background:#515454;color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 10px}
