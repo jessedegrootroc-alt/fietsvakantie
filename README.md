@@ -22,7 +22,7 @@ Daarna http://localhost:8731
 
 ## Kaartversies
 
-Rechtsonder zit een inklapbaar paneel om te wisselen. Ook via de toetsen 0 tot 5 of de parameter `?v=`.
+Rechtsonder zit een inklapbaar paneel om te wisselen. Ook via de toetsen 0 tot 6 of de parameter `?v=`.
 
 | Versie | Opzet | Kaarthoogte |
 | --- | --- | --- |
@@ -32,8 +32,9 @@ Rechtsonder zit een inklapbaar paneel om te wisselen. Ook via de toetsen 0 tot 5
 | 3 | reis eerst: type, kerngetallen, Fietsen en Verblijf | variabel |
 | 4 | routelijn onder de titel, zelfde kaarthoogte als nu | 548 |
 | 5 | zelfde opbouw als 4, ruimer met een vaste witruimte van 16 | 632 |
+| 6 | redesignstijl, foto over de hele kaart met verloop, tekst wit | 560 |
 
-In versie 4 en 5 staat op de tweede positie een gewone arrangementkaart met een stippelrand,
+In versie 4, 5 en 6 staat op de tweede positie een gewone arrangementkaart met een stippelrand,
 zodat de fietsvakantiekaart daarmee te vergelijken is.
 
 ## Let op
