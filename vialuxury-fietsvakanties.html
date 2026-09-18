@@ -271,9 +271,15 @@ body{background:var(--shell-bg);color:var(--shell-fg);font-family:BasisGrotesque
 .vl .vx-v6 .vx6__route .vx-stop i{background:#fff;border-color:transparent;box-shadow:none}
 .vl .vx-v6 .vx6__route .vx-leg__bike,.vl .vx-v6 .vx6__route .vx-ob__bike{background:none;padding:0;color:#fff}
 .vl .vx-v6 .vx6__route .vx-ob__arrows{color:rgba(255,255,255,.55)}
-.vl .vx-v6 .vx6__route .vx-leg::before{left:-6px;right:calc(50% + 16px);border-top-color:rgba(255,255,255,.55)}
-.vl .vx-v6 .vx6__route .vx-leg::after{content:"";position:absolute;left:calc(50% + 16px);right:-6px;
-  top:calc(var(--axis) - 1px);border-top:2px dashed rgba(255,255,255,.55)}
+.vl .vx-v6 .vx6__route .vx-leg::before,.vl .vx-v6 .vx6__route .vx-leg::after{
+  content:"";position:absolute;top:calc(var(--axis) - 1px);height:2px;border-top:0;
+  background-image:repeating-linear-gradient(to right,#fff 0 7px,transparent 7px 13px),
+    repeating-linear-gradient(to right,rgba(255,255,255,.42) 0 7px,transparent 7px 13px);
+  background-repeat:no-repeat,repeat-x;background-position:left center,left center}
+.vl .vx-v6 .vx6__route .vx-leg::before{left:-6px;right:calc(50% + 16px);
+  background-size:calc(var(--f1,0) * 100%) 2px,auto}
+.vl .vx-v6 .vx6__route .vx-leg::after{left:calc(50% + 16px);right:-6px;
+  background-size:calc(var(--f2,0) * 100%) 2px,auto}
 .vl .vx-v6 .vx6__route .vx-ob::before{left:9px;right:calc(50% + 16px);border-top-color:rgba(255,255,255,.55)}
 .vl .vx-v6 .vx6__route .vx-ob::after{content:"";position:absolute;left:calc(50% + 16px);right:9px;
   top:calc(var(--axis) - 1px);border-top:2px dashed rgba(255,255,255,.55)}
@@ -694,9 +700,30 @@ function maakWitteKaart(a){
   if(gat&&hart)gat.appendChild(hart); else if(gat)gat.remove();
   wireVideo(a);
 }
+const SCENES=[0,1.583333,3.291667,6];
+function routeTimer(a,v){
+  const legs=[...a.querySelectorAll('.vx6__route .vx-leg')];
+  if(!legs.length)return;
+  const klem=x=>Math.max(0,Math.min(1,x));
+  const zet=()=>{const t=v.currentTime;
+    legs.forEach((leg,i)=>{
+      const start=SCENES[i],eind=SCENES[i+1];
+      const p=eind>start?klem((t-start)/(eind-start)):0;
+      leg.style.setProperty('--f1',klem(p*2));
+      leg.style.setProperty('--f2',klem(p*2-1));
+    });};
+  const wis=()=>legs.forEach(l=>{l.style.setProperty('--f1',0);l.style.setProperty('--f2',0);});
+  let raf=0;
+  const loop=()=>{zet();raf=requestAnimationFrame(loop);};
+  v.addEventListener('play',()=>{cancelAnimationFrame(raf);loop();});
+  v.addEventListener('pause',()=>{cancelAnimationFrame(raf);});
+  a.addEventListener('mouseleave',wis);
+  wis();
+}
 function wireVideo(a){
   const v=a.querySelector('.vx6__video'); if(!v)return;
   const rust=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  routeTimer(a,v);
   const houder=a.closest('.vl');
   const mobiel=houder?houder.clientWidth<768:false;
   v.muted=true;
