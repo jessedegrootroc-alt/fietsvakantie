@@ -268,7 +268,10 @@ body{background:var(--shell-bg);color:var(--shell-fg);font-family:BasisGrotesque
 .vl .vx-v6 .vx6__route{--axis:25px;margin:0 0 12px;padding:0;border:0;background:none}
 .vl .vx-v6 .vx6__route .vx-stop b{color:#fff;font-size:12.5px;line-height:14px;margin-bottom:6px}
 .vl .vx-v6 .vx6__route .vx-stop span{color:rgba(255,255,255,.75);font-size:11px;line-height:13px;margin-top:6px}
-.vl .vx-v6 .vx6__route .vx-stop i{background:#fff;border-color:transparent;box-shadow:none}
+.vl .vx-v6 .vx6__route .vx-stop i{background:#fff;border-color:transparent;box-shadow:none;transition:background 200ms ease}
+.vl .vx-v6 .vx6__route .vx-stop b{transition:color 200ms ease}
+.vl .vx-v6 .vx6__route .vx-stop.is-actief i{background:#FB862C}
+.vl .vx-v6 .vx6__route .vx-stop.is-actief b{color:#FB862C}
 .vl .vx-v6 .vx6__route .vx-leg__bike,.vl .vx-v6 .vx6__route .vx-ob__bike{background:none;padding:0;color:#fff}
 .vl .vx-v6 .vx6__route .vx-ob__arrows{color:rgba(255,255,255,.55)}
 .vl .vx-v6 .vx6__route .vx-leg::before,.vl .vx-v6 .vx6__route .vx-leg::after{
@@ -705,14 +708,19 @@ function routeTimer(a,v){
   const legs=[...a.querySelectorAll('.vx6__route .vx-leg')];
   if(!legs.length)return;
   const klem=x=>Math.max(0,Math.min(1,x));
+  const stops=[...a.querySelectorAll('.vx6__route .vx-stop')];
+  const oplicht=a.classList.contains('vx-actief');
+  const zetActief=i=>{if(oplicht)stops.forEach((s,j)=>s.classList.toggle('is-actief',j===i));};
   const zet=()=>{const t=v.currentTime;
+    let scene=0; for(let k=1;k<SCENES.length-1;k++)if(t>=SCENES[k])scene=k;
+    zetActief(scene);
     legs.forEach((leg,i)=>{
       const start=SCENES[i+1],eind=SCENES[i+2];
       const p=eind>start?klem((t-start)/(eind-start)):0;
       leg.style.setProperty('--f1',klem(p*2));
       leg.style.setProperty('--f2',klem(p*2-1));
     });};
-  const wis=()=>legs.forEach(l=>{l.style.setProperty('--f1',0);l.style.setProperty('--f2',0);});
+  const wis=()=>{legs.forEach(l=>{l.style.setProperty('--f1',0);l.style.setProperty('--f2',0);}); zetActief(0);};
   let raf=0;
   const loop=()=>{zet();raf=requestAnimationFrame(loop);};
   v.addEventListener('play',()=>{cancelAnimationFrame(raf);loop();});
@@ -766,8 +774,17 @@ function render(r){
         derde.insertAdjacentElement('afterend',vierde);
         const va=vierde.querySelector('a.map-offer');
         if(va){va.classList.add('vx-witblur'); wireVideo(va);}
+        const vijfde=cel.cloneNode(true);
+        vierde.insertAdjacentElement('afterend',vijfde);
+        const v5=vijfde.querySelector('a.map-offer');
+        if(v5){v5.classList.add('vx-actief'); wireVideo(v5);}
+        const zesde=derde.cloneNode(true);
+        vijfde.insertAdjacentElement('afterend',zesde);
+        const z6=zesde.querySelector('a.map-offer');
+        if(z6){z6.classList.add('vx-actief'); wireVideo(z6);}
         // alleen de behandelingen naast elkaar, de overige kaarten vervallen
-        [...grid.children].forEach(c=>{if(c!==cel&&c!==kopie&&c!==derde&&c!==vierde)c.remove();});}
+        const houden=[cel,kopie,derde,vierde,vijfde,zesde];
+        [...grid.children].forEach(c=>{if(houden.indexOf(c)<0)c.remove();});}
     }}
   r._deals.forEach(d=>{const b=d.el.querySelector('.map-heart button'); if(b)b.setAttribute('aria-pressed',String(state.fav.has(d.key)));});
   const telling=[...grid.querySelectorAll('a.map-offer')].filter(x=>!x.closest('.vx-compare')).length;
