@@ -722,7 +722,7 @@ function routeTimer(a,v){
     let scene=0; for(let k=1;k<SCENES.length-1;k++)if(t>=SCENES[k])scene=k;
     zetActief(scene);
     legs.forEach((leg,i)=>{
-      const start=SCENES[i+1],eind=SCENES[i+2];
+      const start=SCENES[i],eind=SCENES[i+1];
       const p=eind>start?klem((t-start)/(eind-start)):0;
       leg.style.setProperty('--f1',klem(p*2));
       leg.style.setProperty('--f2',klem(p*2-1));
