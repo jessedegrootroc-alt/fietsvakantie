@@ -725,7 +725,7 @@ function routeTimer(a,v){
   const oplicht=a.classList.contains('vx-actief');
   const zetActief=i=>{if(!oplicht)return;
     if(route)route.classList.toggle('is-bezig',i>=0);
-    stops.forEach((s,j)=>s.classList.toggle('is-actief',j===i));};
+    stops.forEach((s,j)=>s.classList.toggle('is-actief',i>=0&&j<=i));};
   const zet=()=>{const t=v.currentTime;
     let scene=0; for(let k=1;k<SCENES.length-1;k++)if(t>=SCENES[k])scene=k;
     zetActief(scene);
