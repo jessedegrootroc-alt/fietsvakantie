@@ -1,0 +1,139 @@
+/* ------------------------------------------------------------------
+   Fietsvakantiekaart
+   Losse component, geen Tailwind en geen andere afhankelijkheden.
+   Alles zit onder .vlc, dus het botst niet met bestaande stijlen.
+
+   Tokens uit styleguide-vakanties.md:
+   #141414 zwart, #FB862C accent met hover #F56800, #27C88D vinkjes,
+   #D32F2F oude prijs, #555555 bijschrift, #F0F0F0 rand,
+   radius 6px, schaduw 0 2px 8px, Recoleta voor koppen en prijs,
+   Basis Grotesque voor de knop en de lopende tekst.
+------------------------------------------------------------------- */
+
+.vlc{
+  --vlc-zwart:#141414;
+  --vlc-accent:#FB862C;
+  --vlc-accent-hover:#F56800;
+  --vlc-vink:#27C88D;
+  --vlc-oud:#D32F2F;
+  --vlc-grijs:#555555;
+  --vlc-rand:#F0F0F0;
+  --vlc-ruimte:16px;
+  --vlc-beeld:240px;          /* hoogte van het beeldvlak */
+  --vlc-as:25px;              /* hoogte van de routelijn binnen de rij */
+  --vlc-kop:'Recoleta','Playfair Display',Georgia,serif;
+  --vlc-tekst:'Basis Grotesque','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+
+  position:relative;display:flex;flex-direction:column;
+  background:#fff;border:1px solid var(--vlc-rand);border-radius:6px;overflow:hidden;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);transition:box-shadow 250ms ease;
+  color:var(--vlc-zwart);font-family:var(--vlc-tekst);text-decoration:none;
+}
+.vlc:hover{box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.vlc *,.vlc *::before,.vlc *::after{box-sizing:border-box}
+
+/* ---- beeldvlak ---- */
+.vlc__media{position:relative;height:var(--vlc-beeld);flex:none;overflow:hidden;background:var(--vlc-zwart)}
+.vlc__video,.vlc__thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.vlc__thumb{opacity:1;transition:opacity 250ms ease}
+.vlc.is-playing .vlc__thumb{opacity:0}
+
+/* verloop achter de routelijn, anders zakt wit weg in een lichte foto */
+.vlc__scrim{position:absolute;inset:auto 0 0 0;height:46%;
+  background:linear-gradient(to top,rgba(0,0,0,.8) 0%,rgba(0,0,0,.55) 42%,rgba(0,0,0,0) 100%)}
+/* matglas in plaats van verloop: zet class vlc--blur op de kaart */
+.vlc--blur .vlc__scrim{background:rgba(20,20,20,.42);
+  backdrop-filter:blur(12px) saturate(115%);-webkit-backdrop-filter:blur(12px) saturate(115%);
+  -webkit-mask-image:linear-gradient(to top,#000 52%,rgba(0,0,0,.6) 78%,transparent 100%);
+  mask-image:linear-gradient(to top,#000 52%,rgba(0,0,0,.6) 78%,transparent 100%)}
+
+/* ---- kortingsbadge ---- */
+.vlc__discount{position:absolute;top:16px;left:16px;z-index:3;
+  display:inline-flex;align-items:center;justify-content:center;min-width:68px;height:50px;
+  padding:2px 12px 4px 10px;background:var(--vlc-zwart);color:#fff;
+  font-family:var(--vlc-kop);font-weight:700;font-size:17px;line-height:24px;letter-spacing:.5px;
+  clip-path:polygon(0% 18%,100% 0%,85% 100%,0% 90%)}
+
+/* ---- favorietenhart ---- */
+.vlc__heart{position:absolute;top:16px;right:16px;z-index:3;
+  width:36px;height:36px;border:0;border-radius:50%;cursor:pointer;
+  display:grid;place-items:center;background:rgba(255,255,255,.92);color:var(--vlc-zwart);padding:0}
+.vlc__heart svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8}
+.vlc__heart[aria-pressed="true"] svg{fill:#E01F33;stroke:#E01F33}
+
+/* ---- routelijn ---- */
+.vlc__route{position:absolute;left:0;right:0;bottom:0;z-index:2;
+  list-style:none;margin:0;padding:0 16px 14px;display:flex;align-items:stretch;justify-content:center}
+.vlc__stop{display:flex;flex-direction:column;align-items:center;text-align:center;
+  flex:0 0 auto;max-width:36%;min-width:0}
+.vlc__stop b{order:1;color:#fff;font-size:12.5px;font-weight:700;line-height:14px;margin-bottom:6px;
+  max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 2px;
+  transition:color 200ms ease}
+.vlc__stop i{order:2;display:block;width:10px;height:10px;border-radius:50%;background:#fff;
+  transition:background 200ms ease}
+.vlc__stop span{order:3;color:rgba(255,255,255,.75);font-size:11px;line-height:13px;margin-top:6px;
+  transition:color 200ms ease}
+
+/* de etappe is de balk die volloopt: witte streepjes over grijze streepjes */
+.vlc__leg{flex:1 1 0;min-width:40px;position:relative;display:flex;flex-direction:column;align-items:center}
+.vlc__leg::before,.vlc__leg::after{content:"";position:absolute;top:calc(var(--vlc-as) - 1px);height:2px;
+  background-image:repeating-linear-gradient(to right,#fff 0 7px,transparent 7px 13px),
+    repeating-linear-gradient(to right,rgba(255,255,255,.42) 0 7px,transparent 7px 13px);
+  background-repeat:no-repeat,repeat-x;background-position:left center,left center}
+.vlc__leg::before{left:-6px;right:calc(50% + 16px);background-size:calc(var(--f1,0) * 100%) 2px,auto}
+.vlc__leg::after{left:calc(50% + 16px);right:-6px;background-size:calc(var(--f2,0) * 100%) 2px,auto}
+.vlc__bike{position:absolute;top:var(--vlc-as);left:50%;transform:translate(-50%,-50%);
+  color:#fff;display:flex}
+.vlc__bike svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round}
+
+/* zolang de video loopt: bereikte plaatsen wit, de rest grijs */
+.vlc__route.is-running .vlc__stop b{color:rgba(255,255,255,.45)}
+.vlc__route.is-running .vlc__stop i{background:rgba(255,255,255,.45)}
+.vlc__route.is-running .vlc__stop span{color:rgba(255,255,255,.4)}
+.vlc__route.is-running .vlc__stop.is-done b{color:#fff}
+.vlc__route.is-running .vlc__stop.is-done i{background:#fff}
+.vlc__route.is-running .vlc__stop.is-done span{color:rgba(255,255,255,.8)}
+
+/* ---- tekstblok ---- */
+.vlc__body{padding:var(--vlc-ruimte)}
+.vlc__kind{font-family:var(--vlc-kop);font-weight:700;font-size:16px;line-height:20.8px}
+.vlc__places{display:flex;align-items:center;gap:6px;margin-top:4px;
+  font-size:13px;line-height:18px;color:var(--vlc-grijs)}
+.vlc__places svg{width:14px;height:14px;flex:none}
+.vlc__title{font-family:var(--vlc-kop);font-weight:700;font-size:18px;line-height:23.4px;
+  margin:var(--vlc-ruimte) 0 0;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+.vlc__label{font-family:var(--vlc-kop);font-weight:600;font-size:13px;line-height:20.8px;
+  color:var(--vlc-accent);margin-top:var(--vlc-ruimte)}
+.vlc__incl{list-style:none;margin:8px 0 0;padding:0}
+.vlc__incl li{display:flex;align-items:flex-start;gap:8px;font-size:14px;line-height:22.4px;margin-bottom:6px}
+.vlc__incl li:last-child{margin-bottom:0}
+.vlc__incl svg{width:14px;height:14px;margin-top:4px;color:var(--vlc-vink);flex:none}
+.vlc__people{font-weight:700;font-size:14px;line-height:22.4px;margin-top:var(--vlc-ruimte)}
+
+.vlc__price{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:8px}
+.vlc__amounts{display:flex;align-items:baseline;gap:8px}
+.vlc__from{font-family:var(--vlc-kop);font-style:italic;font-size:13px;color:var(--vlc-grijs)}
+.vlc__now{font-family:var(--vlc-kop);font-weight:700;font-size:22px;line-height:22px}
+.vlc__was{font-family:var(--vlc-kop);font-size:14px;color:var(--vlc-oud);text-decoration:line-through}
+.vlc__info{align-self:center;color:#999;display:flex}
+.vlc__info svg{width:15px;height:15px}
+.vlc__cta{display:inline-flex;align-items:center;height:42px;padding:10px 24px;
+  background:var(--vlc-accent);color:#fff;border-radius:6px;text-decoration:none;
+  font-weight:600;font-size:14px;line-height:22.4px;transition:background 150ms ease;white-space:nowrap}
+.vlc:hover .vlc__cta,.vlc__cta:hover{background:var(--vlc-accent-hover)}
+
+/* ---- smal: meer lucht tussen de blokken ---- */
+@media (max-width:767px){
+  .vlc{--vlc-ruimte:20px}
+  .vlc__route{padding:0 20px 16px}
+  .vlc__incl{margin-top:10px}
+  .vlc__incl li{margin-bottom:8px}
+  .vlc__price{margin-top:12px}
+}
+
+/* ---- minder beweging: geen video, het stilstaande beeld blijft staan ---- */
+@media (prefers-reduced-motion:reduce){
+  .vlc.is-playing .vlc__thumb{opacity:1}
+}

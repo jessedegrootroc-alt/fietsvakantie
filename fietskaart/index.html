@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fietsvakantiekaart</title>
+<link rel="stylesheet" href="fietskaart.css">
+<style>
+  :root{color-scheme:light}
+  *{box-sizing:border-box}
+  body{margin:0;padding:40px 24px 80px;background:#FBFAF8;color:#141414;
+    font:14px/1.6 'Basis Grotesque','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif}
+  h1{font-family:'Recoleta','Playfair Display',Georgia,serif;font-weight:700;font-size:28px;line-height:36.4px;margin:0 0 6px}
+  p.sub{margin:0 0 32px;color:#555}
+  .raster{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:24px;max-width:1200px;margin:0 auto}
+  .wrap{max-width:1200px;margin:0 auto}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <h1>Fietsvakantiekaart</h1>
+  <p class="sub">Beweeg met de muis over een kaart. Op een touchscreen speelt het beeld vanzelf.</p>
+</div>
+
+<div class="raster">
+
+  <!-- ========= KAART, dit is het hele sjabloon ========= -->
+  <article class="vlc" data-vlc data-scenes="0,1.583333,3.291667,6">
+
+    <div class="vlc__media">
+      <video class="vlc__video" muted loop playsinline preload="metadata" poster="media/poster.jpg">
+        <source src="media/route.mp4" type="video/mp4">
+      </video>
+      <img class="vlc__thumb" src="media/thumbnail.jpg" alt="">
+      <div class="vlc__scrim"></div>
+
+      <span class="vlc__discount">-35%</span>
+
+      <button class="vlc__heart" type="button" aria-pressed="false" aria-label="Bewaar als favoriet">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z"/></svg>
+      </button>
+
+      <ol class="vlc__route" aria-label="Reisopbouw">
+        <li class="vlc__stop"><b>Delden</b><i></i><span>2 nachten</span></li>
+        <li class="vlc__leg">
+          <span class="vlc__bike"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17l3.5-8h4.5l4 8M9.5 9l2.5 8M14 9l-1.2-3.2h2.7"/></svg></span>
+        </li>
+        <li class="vlc__stop"><b>Raalte</b><i></i><span>2 nachten</span></li>
+        <li class="vlc__leg">
+          <span class="vlc__bike"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="6" cy="17" r="3.5"/><circle cx="18" cy="17" r="3.5"/><path d="M6 17l3.5-8h4.5l4 8M9.5 9l2.5 8M14 9l-1.2-3.2h2.7"/></svg></span>
+        </li>
+        <li class="vlc__stop"><b>Markelo</b><i></i><span>2 nachten</span></li>
+      </ol>
+    </div>
+
+    <div class="vlc__body">
+      <div class="vlc__kind">Fietsvakantie met 3 hotels</div>
+
+      <div class="vlc__places">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Delden &middot; Raalte &middot; Markelo</span>
+      </div>
+
+      <h3 class="vlc__title">7-daagse fietsvakantie Twente &amp; Salland: Delden &ndash; Raalte &ndash; Markelo incl. dagelijks 3-gangendiner</h3>
+
+      <div class="vlc__label">Fietsvakantie</div>
+
+      <ul class="vlc__incl">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span>6 nachten / 3 hotels</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span>Dagelijks 3-gangendiner</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span>Dagelijkse bagagetransfer</span></li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9.5 18 20 6.5"/></svg><span>Fietsroutes op je telefoon</span></li>
+      </ul>
+
+      <div class="vlc__people">2 personen, 6 nachten</div>
+
+      <div class="vlc__price">
+        <div class="vlc__amounts">
+          <span class="vlc__from">Vanaf</span>
+          <span class="vlc__now">&euro;1.059</span>
+          <span class="vlc__was">&euro;1.635</span>
+          <span class="vlc__info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6" stroke-linecap="round"/><circle cx="12" cy="7.6" r="1.1" fill="currentColor" stroke="none"/></svg></span>
+        </div>
+        <a class="vlc__cta" href="#">Bekijk</a>
+      </div>
+    </div>
+
+  </article>
+  <!-- ========= einde kaart ========= -->
+
+</div>
+
+<script src="fietskaart.js"></script>
+<script>
+  // tweede en derde kaart, alleen om het raster te vullen
+  const raster = document.querySelector('.raster');
+  const bron = raster.firstElementChild;
+  for (let i = 0; i < 2; i++) raster.appendChild(bron.cloneNode(true));
+  raster.querySelectorAll('[data-vlc]').forEach(c => c.removeAttribute('data-vlc-klaar'));
+  initFietskaart();
+</script>
+
+</body>
+</html>
