@@ -269,9 +269,13 @@ body{background:var(--shell-bg);color:var(--shell-fg);font-family:BasisGrotesque
 .vl .vx-v6 .vx6__route .vx-stop b{color:#fff;font-size:12.5px;line-height:14px;margin-bottom:6px}
 .vl .vx-v6 .vx6__route .vx-stop span{color:rgba(255,255,255,.75);font-size:11px;line-height:13px;margin-top:6px}
 .vl .vx-v6 .vx6__route .vx-stop i{background:#fff;border-color:transparent;box-shadow:none;transition:background 200ms ease}
-.vl .vx-v6 .vx6__route .vx-stop b{transition:color 200ms ease}
-.vl .vx-v6 .vx6__route .vx-stop.is-actief i{background:#FB862C}
-.vl .vx-v6 .vx6__route .vx-stop.is-actief b{color:#FB862C}
+.vl .vx-v6 .vx6__route .vx-stop b,.vl .vx-v6 .vx6__route .vx-stop span{transition:color 200ms ease}
+.vl .vx-v6 .vx6__route.is-bezig .vx-stop b{color:rgba(255,255,255,.45)}
+.vl .vx-v6 .vx6__route.is-bezig .vx-stop i{background:rgba(255,255,255,.45)}
+.vl .vx-v6 .vx6__route.is-bezig .vx-stop span{color:rgba(255,255,255,.4)}
+.vl .vx-v6 .vx6__route.is-bezig .vx-stop.is-actief b{color:#fff}
+.vl .vx-v6 .vx6__route.is-bezig .vx-stop.is-actief i{background:#fff}
+.vl .vx-v6 .vx6__route.is-bezig .vx-stop.is-actief span{color:rgba(255,255,255,.8)}
 .vl .vx-v6 .vx6__route .vx-leg__bike,.vl .vx-v6 .vx6__route .vx-ob__bike{background:none;padding:0;color:#fff}
 .vl .vx-v6 .vx6__route .vx-ob__arrows{color:rgba(255,255,255,.55)}
 .vl .vx-v6 .vx6__route .vx-leg::before,.vl .vx-v6 .vx6__route .vx-leg::after{
@@ -709,8 +713,11 @@ function routeTimer(a,v){
   if(!legs.length)return;
   const klem=x=>Math.max(0,Math.min(1,x));
   const stops=[...a.querySelectorAll('.vx6__route .vx-stop')];
+  const route=a.querySelector('.vx6__route');
   const oplicht=a.classList.contains('vx-actief');
-  const zetActief=i=>{if(oplicht)stops.forEach((s,j)=>s.classList.toggle('is-actief',j===i));};
+  const zetActief=i=>{if(!oplicht)return;
+    if(route)route.classList.toggle('is-bezig',i>=0);
+    stops.forEach((s,j)=>s.classList.toggle('is-actief',j===i));};
   const zet=()=>{const t=v.currentTime;
     let scene=0; for(let k=1;k<SCENES.length-1;k++)if(t>=SCENES[k])scene=k;
     zetActief(scene);
@@ -720,11 +727,12 @@ function routeTimer(a,v){
       leg.style.setProperty('--f1',klem(p*2));
       leg.style.setProperty('--f2',klem(p*2-1));
     });};
-  const wis=()=>{legs.forEach(l=>{l.style.setProperty('--f1',0);l.style.setProperty('--f2',0);}); zetActief(0);};
+  const wis=()=>{legs.forEach(l=>{l.style.setProperty('--f1',0);l.style.setProperty('--f2',0);}); zetActief(-1);};
   let raf=0;
   const loop=()=>{zet();raf=requestAnimationFrame(loop);};
   v.addEventListener('play',()=>{cancelAnimationFrame(raf);loop();});
   v.addEventListener('pause',()=>{cancelAnimationFrame(raf);});
+  v.addEventListener('ended',wis);
   a.addEventListener('mouseleave',wis);
   wis();
 }
